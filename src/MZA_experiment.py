@@ -12,7 +12,7 @@ from src_param.utils.make_dir import mkdirs
 torch.manual_seed(99)
 
 
-class MZA_Experiment(DynSystem_Data, Train_Methodology):
+class Experiment(DynSystem_Data, Train_Methodology):
 
     def __init__(self,args):
 
@@ -170,7 +170,7 @@ class MZA_Experiment(DynSystem_Data, Train_Methodology):
         #Creating Model
         print("########## SETTING UP MODEL ##########")
         if not load_model:
-            self.model = MZANetwork(self.__dict__).to(self.device)
+            self.model = Network(self.__dict__).to(self.device)
             self.optimizer = torch.optim.Adam(self.model.parameters(), lr = 1, weight_decay=1e-5)
             self.scheduler = LambdaLR(self.optimizer, lr_lambda=self.lr_lambda)
         
@@ -180,7 +180,7 @@ class MZA_Experiment(DynSystem_Data, Train_Methodology):
             self.save_args()
         
         if load_model:
-            self.model = MZANetwork(self.__dict__).to(self.device)
+            self.model = Network(self.__dict__).to(self.device)
             self.optimizer = torch.optim.Adam(self.model.parameters(), lr = 1, weight_decay=1e-5)
             self.scheduler = LambdaLR(self.optimizer, lr_lambda=self.lr_lambda)
             args = pickle.load(open(self.exp_dir + "/" + self.exp_name + "/args","rb"))
