@@ -51,7 +51,7 @@ if __name__ == "__main__":
     #Directory Params ARGS
     parser.add_argument('--exp_dir',         type = str, default = "Trained_Models/2DCyl_new/",   help = "Directory for the Experiment")
     parser.add_argument('--load_exp_name',   type = str, default = "",   help = "Name of the experiment to be loaded")
-    parser.add_argument('--data_dir',        type = str, default = "Data/2DCylinder/processed_data/npyfiles/data_phy_3033_param_beta_Re_train_std.npy", help = "Directory for the Data")
+    parser.add_argument('--data_dir',        type = str, default = "Data/2DCylinder/processed_data/npyfiles/data.npy", help = "Directory for the Data")
     parser.add_argument('--nsave',           type = int,   default = 500, help = "save every nsave number of epochs")
     parser.add_argument('--no_save_model',   action = 'store_false',     help = "doesn't save model")
     parser.add_argument('--time_sample', type = int,   default = 10,    help = "time sampling size")
