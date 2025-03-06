@@ -1,14 +1,14 @@
 import torch
 import csv, pickle, copy
 
-from src_param.Layers.Network import Network
-from src_param.Train_Methods.Train_Methodology import Train_Methodology
-from src_param.PreProc_Data.DynSystem_Data import DynSystem_Data
+from src.Layers.Network import Network
+from src.Train_Methods.Train_Methodology import Train_Methodology
+from src.PreProc_Data.DynSystem_Data import DynSystem_Data
 from torch.optim.lr_scheduler import StepLR, LambdaLR
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from src_param.utils.make_dir import mkdirs
+from src.utils.make_dir import mkdirs
 torch.manual_seed(99)
 
 
