@@ -1,6 +1,6 @@
 import torch, pickle, os
 import pandas as pd
-from src.MZA_Experiment import MZA_Experiment
+from src.Experiment import Experiment
 
 
 torch.manual_seed(99)
@@ -62,9 +62,9 @@ if __name__ == "__main__":
     
     ##Running from scratch  
     if args.load_epoch == 0:
-        mza = MZA_Experiment(args)
+        mza = Experiment(args)
         mza.main_train(load_model = False)
     if args.load_epoch != 0:
-        mza = MZA_Experiment(args)
+        mza = Experiment(args)
         mza.main_train(load_model = True)
 
