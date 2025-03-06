@@ -3,7 +3,7 @@ import csv, h5py, json, pickle
 import torch
 import colorednoise as cn
 from torch.utils.data import DataLoader
-from src_param.PreProc_Data.DataProc import StackedSequenceDataset
+from src.PreProc_Data.DataProc import StackedSequenceDataset
 
 
 class DynSystem_Data:
