@@ -8,12 +8,12 @@ import numpy as np
 from tqdm import tqdm
 import statsmodels.api as sm
 from scipy.stats import gaussian_kde
-from src_param._Experiment import _Experiment
+from src_param.Experiment import Experiment
 from torch.utils.data import DataLoader
 
 torch.manual_seed(99)
 
-class Eval_(_Experiment):
+class Eval_(Experiment):
 
     def __init__(self, exp_dir, exp_name):
 
@@ -34,7 +34,7 @@ class Eval_(_Experiment):
             PATH = self.exp_dir+'/'+ self.exp_name+"/model_weights/min_train_loss".format(epoch=epoch_num)
 
         else:
-            PATH = self.exp_dir+'/'+ self.exp_name+"/model_weights/at_epoch{epoch}".format(epoch=epoch_num)
+            PATH = self.exp_dir+'/'+ self.exp_name+"/model_weights/atEpoch{epoch}".format(epoch=epoch_num)
         
     
         checkpoint = torch.load(PATH)
@@ -275,19 +275,19 @@ class Eval_(_Experiment):
 
     def variational_UQ(self, phi_test, context, ens_var) : 
 
-        Phi_n_ens = []
+        Phi_nEns = []
 
         for i in range(ens_var) : 
 
             x_n, Phi_n, mu, log_var = self.model.autoencoder(phi_test, context)
-            Phi_n_ens.append(Phi_n)
+            Phi_nEns.append(Phi_n)
 
-        Phi_n_ens = torch.stack(Phi_n_ens, dim = 0)
-        var = torch.var(Phi_n_ens, dim = 0)
-        mean_Phi_ens = torch.mean(Phi_n_ens, dim = 0)
+        Phi_nEns = torch.stack(Phi_nEns, dim = 0)
+        var = torch.var(Phi_nEns, dim = 0)
+        mean_PhiEns = torch.mean(Phi_nEns, dim = 0)
 
-        dc_scaling_time = torch.mean(mean_Phi_ens, dim = (-1))
-        ac_scaling_time = torch.var(mean_Phi_ens, dim = (-1))
+        dc_scaling_time = torch.mean(mean_PhiEns, dim = (-1))
+        ac_scaling_time = torch.var(mean_PhiEns, dim = (-1))
 
         dc_scaling_matrix = np.tile(dc_scaling_time[:, np.newaxis], (1, var.shape[2]))
         ac_scaling_matrix = np.tile(ac_scaling_time[:, np.newaxis], (1, var.shape[2]))
@@ -295,20 +295,20 @@ class Eval_(_Experiment):
 
         var = torch.mean(var)
 
-        return var, Phi_n_ens
+        return var, Phi_nEns
 
     def variational_UQ_scale(self, phi_test, context, ens_var) : 
 
-        Phi_n_ens = []
+        Phi_nEns = []
 
         for i in range(ens_var) : 
 
             x_n, Phi_n, mu, log_var = self.model.autoencoder(phi_test, context)
-            Phi_n_ens.append(Phi_n)
+            Phi_nEns.append(Phi_n)
 
-        Phi_n_ens = torch.stack(Phi_n_ens, dim = 0)
+        Phi_nEns = torch.stack(Phi_nEns, dim = 0)
 
-        return Phi_n_ens
+        return Phi_nEns
 
 
     def inspect_latent_var(self, initial_conditions, timesteps, context):
@@ -378,13 +378,13 @@ class Eval_(_Experiment):
     #         context_transfo = context.repeat(1, 1, 4)[:, -1, :].unsqueeze(1)
     #         context_vae = context_transfo[:, :, 0]
 
-    #         x_n_ens, mu, log_var = self.model.encode_variational(Phi_n, context, ens_size)
+    #         x_nEns, mu, log_var = self.model.encode_variational(Phi_n, context, ens_size)
 
     #         for i in range(ens_size) :
 
-    #             x_n = x_n_ens[i, ...]
-    #             Phi_ens = []
-    #             x_ens = []
+    #             x_n = x_nEns[i, ...]
+    #             PhiEns = []
+    #             xEns = []
 
     #             x   = x_n[None,...].to("cpu")                  
     #             Phi = Phi_n[None, ...].to("cpu")                
@@ -418,13 +418,13 @@ class Eval_(_Experiment):
     #             x      = torch.movedim(x, 1, 0) 
     #             Phi    = torch.movedim(Phi, 1, 0) 
 
-    #             x_ens.append(x)
-    #             Phi_ens.append(Phi)
+    #             xEns.append(x)
+    #             PhiEns.append(Phi)
 
-    #         Phi_ens = torch.stack(Phi_ens, dim = 0)
-    #         x_ens = torch.stack(x_ens, dim = 0)
+    #         PhiEns = torch.stack(PhiEns, dim = 0)
+    #         xEns = torch.stack(xEns, dim = 0)
 
-    #         return x_ens, Phi_ens
+    #         return xEns, PhiEns
 
 
 ########################################################################################
@@ -493,10 +493,10 @@ class Eval_(_Experiment):
         df = pd.read_csv(self.exp_dir+'/'+self.exp_name+"/out_log/log")
 
         min_trainloss = df.loc[df['Train_Loss'].idxmin(), 'epoch']
-        print("Epoch with Minimum train_error: ", min_trainloss)
+        print("Epoch with Minimum trainError: ", min_trainloss)
 
         min_testloss = df.loc[df['Test_Loss'].idxmin(), 'epoch']
-        print("Epoch with Minimum test_error: ", min_testloss)
+        print("Epoch with Minimum testError: ", min_testloss)
 
         #Total Loss
         plt.figure()
