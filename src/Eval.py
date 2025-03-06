@@ -8,12 +8,12 @@ import numpy as np
 from tqdm import tqdm
 import statsmodels.api as sm
 from scipy.stats import gaussian_kde
-from src_param.MZA_Experiment import MZA_Experiment
+from src_param._Experiment import _Experiment
 from torch.utils.data import DataLoader
 
 torch.manual_seed(99)
 
-class Eval_MZA(MZA_Experiment):
+class Eval_(_Experiment):
 
     def __init__(self, exp_dir, exp_name):
 
@@ -208,7 +208,7 @@ class Eval_MZA(MZA_Experiment):
         re_x_nn    = x_nn.reshape(int(x_nn.shape[0]/num_trajs), num_trajs, *x_nn.shape[1:])
         x_nn       = torch.movedim(re_x_nn, 1, 0) #[num_trajs timesteps statedim]
 
-        StateEvo_Loss = Eval_MZA.state_mse(Phi_nn, Phi_nn_hat)
+        StateEvo_Loss = Eval.state_mse(Phi_nn, Phi_nn_hat)
 
         return x_nn_hat, Phi_nn_hat, x_nn, Phi_nn, StateEvo_Loss
 
