@@ -8,10 +8,10 @@ import inspect
 import src_param.Layers.VAE as Autoencoder
 import src_param.Layers.transformer_cross_att as Transformer
 
-class MZANetwork(nn.Module):
+class Network(nn.Module):
   
     def __init__(self, exp_args : dict):
-        super(MZANetwork, self).__init__()
+        super(Network, self).__init__()
         
         self.args        = exp_args
         self.select_models()
