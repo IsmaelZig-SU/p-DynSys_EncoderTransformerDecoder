@@ -8,7 +8,7 @@ import numpy as np
 from tqdm import tqdm
 import statsmodels.api as sm
 from scipy.stats import gaussian_kde
-from src_param.Experiment import Experiment
+from src.Experiment import Experiment
 from torch.utils.data import DataLoader
 
 torch.manual_seed(99)
