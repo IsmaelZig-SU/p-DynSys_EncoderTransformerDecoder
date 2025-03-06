@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from src_param.PreProc_Data.DataProc import SequenceDataset
+from src.PreProc_Data.DataProc import SequenceDataset
 
 import inspect
 
-import src_param.Layers.VAE as Autoencoder
-import src_param.Layers.transformer_cross_att as Transformer
+import src.Layers.VAE as Autoencoder
+import src.Layers.transformer_cross_att as Transformer
 
 class Network(nn.Module):
   
