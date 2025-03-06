@@ -8,7 +8,7 @@ import argparse
 
 if __name__ == "__main__":
     #Parsing arguments
-    parser = argparse.ArgumentParser(description='MZAutoencoder')
+    parser = argparse.ArgumentParser(description='p-Variational-EncoderTransformerDecoder')
 
     #Training Params
     parser.add_argument('--load_epoch',             type = int, default = 0 ,        help = "loads model at a particular epoch for training")
@@ -62,9 +62,9 @@ if __name__ == "__main__":
     
     ##Running from scratch  
     if args.load_epoch == 0:
-        mza = Experiment(args)
-        mza.main_train(load_model = False)
+        exp = Experiment(args)
+        exp.main_train(load_model = False)
     if args.load_epoch != 0:
-        mza = Experiment(args)
-        mza.main_train(load_model = True)
+        exp = Experiment(args)
+        exp.main_train(load_model = True)
 
