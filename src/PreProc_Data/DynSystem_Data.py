@@ -34,7 +34,7 @@ class DynSystem_Data:
         #additional data parameters
         self.statedim   = self.lp_data.shape[2:]
         self.state_ndim = len(self.statedim)
-        self.statedim   = self.statedim[0] - 2 if self.state_ndim == 1 else self.statedim
+        self.statedim   = self.statedim[0] - self.nbr_ext_var if self.state_ndim == 1 else self.statedim
         print("State Dims: ", self.statedim)
 
         #Normalising Data
