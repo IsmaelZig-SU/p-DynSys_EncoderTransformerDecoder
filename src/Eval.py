@@ -229,7 +229,7 @@ class Eval_(Experiment):
             self.model.eval()
 
             Phi_n  = initial_conditions  
-            x_n, _, mu, log_var = self.model.autoencoder(Phi_n, context)    #[num_trajs obsdim]
+            _, _, x_n, log_var = self.model.autoencoder(Phi_n, context)    #[num_trajs obsdim]
             x   = x_n[None,...].to("cpu")                    #[timesteps num_trajs obsdim]
             Phi = Phi_n[None, ...].to("cpu")                    #[timesteps num_trajs statedim]
    
