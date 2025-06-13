@@ -1,3 +1,13 @@
+git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
+
+cd p-DynSys_EncoderTransformerDecoder
+
+python -m venv env
+source env/bin/activate    # On Linux/macOS
+env\Scripts\activate       # On Windows
+pip install -r requirements.txt
+
+
 # p-DynSys_EncoderTransformerDecoder
 
 Parametrised Uncertainty-Aware ROM for Dynamical Systems : https://arxiv.org/abs/2503.23236
