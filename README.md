@@ -31,7 +31,7 @@ d + p.dim = 10001:
 
 d = 10000: The spatial dimension corresponds to the 100 × 100 grid (flattened to 10,000 points).
 
-p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points.
+p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points. You are free to stack more than 1 parameter (Geometry, Viscosity, Reynolds...)
 
 Parameter Stacking:
 The parameter value (e.g., Reynolds number) is stacked at the end of the spatial vector for each snapshot. This parameter value is unique for each of the 5 configurations.
