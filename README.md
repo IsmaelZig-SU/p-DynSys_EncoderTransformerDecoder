@@ -4,11 +4,11 @@
 
 (3.0) - python -m venv env
 
-(3.1) source env/bin/activate    # On Linux/macOS
+(3.1) - source env/bin/activate    # On Linux/macOS
 
-(3.1) env\Scripts\activate       # On Windows
+(3.1) - env\Scripts\activate       # On Windows
 
-(3.2) pip install -r requirements.txt
+(3.2) - pip install -r requirements.txt
 
 
 # p-DynSys_EncoderTransformerDecoder
