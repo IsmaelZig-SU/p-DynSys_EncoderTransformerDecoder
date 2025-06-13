@@ -8,7 +8,7 @@
 
 (3.1) - env\Scripts\activate       # On Windows
 
-(3.2) - pip install -r requirements.txt
+(3.2) - pip install -r requirements.txt  #Takes about 10 minutes
 
 
 # p-DynSys_EncoderTransformerDecoder
