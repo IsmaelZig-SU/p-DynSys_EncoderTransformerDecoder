@@ -1,11 +1,11 @@
-git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
+(1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
 
-cd p-DynSys_EncoderTransformerDecoder
+(2) - cd p-DynSys_EncoderTransformerDecoder
 
-python -m venv env
-source env/bin/activate    # On Linux/macOS
-env\Scripts\activate       # On Windows
-pip install -r requirements.txt
+(3) - python -m venv env
+        (3.1) source env/bin/activate    # On Linux/macOS
+        (3.1) env\Scripts\activate       # On Windows
+        (3.2) pip install -r requirements.txt
 
 
 # p-DynSys_EncoderTransformerDecoder
