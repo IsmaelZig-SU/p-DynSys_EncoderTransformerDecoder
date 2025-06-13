@@ -8,7 +8,7 @@
 
 (3.1) - env\Scripts\activate       # On Windows
 
-(3.2) - pip install -r requirements.txt  #Takes about 10 minutes we recommend in the meantime to download the model and the data ~10 minutes as well (4 GB) 
+(3.2) - pip install -r requirements.txt  #Takes about 10 minutes we recommend in the meantime to download the model and the data ~10 minutes as well (4 GB) Model :https://drive.google.com/drive/folders/1UnlsCY2UFdV5pw_podJtfl1yWz_tIhet?usp=sharing Data : https://drive.google.com/file/d/1hDKU2TKOQ6ZrOZxw9-2V1_A_1Vx62hRo/view?usp=sharing
 
 
 # p-DynSys_EncoderTransformerDecoder
