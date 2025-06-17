@@ -4,11 +4,108 @@
 
 (3.0) - python -m venv env
 
-(3.1) - source env/bin/activate    # On Linux/macOS
+(3.1) - source env/bin/activate    # Linux/macOS
 
-(3.1) - env\Scripts\activate       # On Windows
+(3.1) - env\Scripts\activate       # Windows
 
 (3.2) - pip install -r requirements.txt
+
+(4) - Download Data from : https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing, unzip in the root folder 
+
+(5) - Download Trained_Models from : PyTorch: `torch.load` with `weights_only=True` leads to remote code execution, unzip it in teh rootfolder 
+
+(6) - You can run the Notebook in Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb
+
+Your folder structure should be : 
+
+|   .gitignore
+|   Data.zip
+|   latent_manifold.gif
+|   main.py
+|   README.md
+|   requirements.txt
+|   Trained_models.zip
+|
++---Data
+|   \---2DCylinder
+|       \---processed_data
+|           \---npyfiles
+|                   info.txt
+|                   test.npy
+|                   train.npy
+|
++---Notebooks
+|   \---2DCyl
+|       |   eval-p-2DCyl.ipynb
+|       |   Hands_on_UP-d-ROM.ipynb
+|       |
+|       \---.ipynb_checkpoints
+|               Hands_on_UP-d-ROM-checkpoint.ipynb
+|
++---src
+|   |   Eval.py
+|   |   Experiment.py
+|   |
+|   +---Layers
+|   |   |   Network.py
+|   |   |   transformer_cross_att.py
+|   |   |   VAE.py
+|   |   |
+|   |   \---__pycache__
+|   |           MZANetwork.cpython-311.pyc
+|   |           Network.cpython-311.pyc
+|   |           transformer_cross_att.cpython-311.pyc
+|   |           VAE.cpython-311.pyc
+|   |
+|   +---PreProc_Data
+|   |   |   DataProc.py
+|   |   |   DynSystem_Data.py
+|   |   |
+|   |   \---__pycache__
+|   |           DataProc.cpython-311.pyc
+|   |           DynSystem_Data.cpython-311.pyc
+|   |
+|   +---Train_Methods
+|   |   |   Train_Methodology.py
+|   |   |
+|   |   \---__pycache__
+|   |           Train_Methodology.cpython-311.pyc
+|   |
+|   +---utils
+|   |   |   make_dir.py
+|   |   |
+|   |   \---__pycache__
+|   |           make_dir.cpython-311.pyc
+|   |
+|   \---__pycache__
+|           Eval.cpython-311.pyc
+|           Experiment.cpython-311.pyc
+|           MZA_Experiment.cpython-311.pyc
+|
+\---Trained_models
+    \---2DCyl_new
+        |   info.txt
+        |
+        \---sl9_obs4_bs64_attblks1_atthds8_tr0_ph10_lbdaStateLoss1.0_nhd64_0.0002__
+            |   args
+            |
+            +---model_weights
+            |       at_epoch0
+            |       at_epoch1000
+            |       at_epoch1500
+            |       at_epoch2000
+            |       at_epoch2500
+            |       at_epoch2999
+            |       at_epoch500
+            |       min_test_loss
+            |       min_train_loss
+            |
+            \---out_log
+                    AutoencoderLoss.png
+                    log
+                    StateLoss.png
+                    TotalLoss.png
+                    TransEvo.png
 
 
 # p-DynSys_EncoderTransformerDecoder
