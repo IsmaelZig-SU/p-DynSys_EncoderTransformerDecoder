@@ -1,3 +1,4 @@
+<pre> ```
 (1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
 
 (2) - cd p-DynSys_EncoderTransformerDecoder
@@ -145,6 +146,8 @@ p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatia
 
 Parameter Stacking:
 The parameter value (e.g., Reynolds number) is stacked at the end of the spatial vector for each snapshot. This parameter value is unique for each of the 5 configurations.
+
+</pre>
 
 Key Notes:
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
