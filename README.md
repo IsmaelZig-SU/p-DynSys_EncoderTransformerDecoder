@@ -20,12 +20,9 @@
 Your folder structure should be : 
 
 |   .gitignore
-|   Data.zip
-|   latent_manifold.gif
 |   main.py
 |   README.md
 |   requirements.txt
-|   Trained_models.zip
 |
 +---Data
 |   \---2DCylinder
