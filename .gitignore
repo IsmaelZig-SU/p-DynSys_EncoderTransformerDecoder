@@ -1,0 +1,12 @@
+Trained_Models/* 
+Trained_Models_Submission/* 
+Pre-trained_Models/* 
+Data/* 
+env_test/*
+__pycache__/ 
+test/noise_images/* 
+*.sh 
+*.gif 
+*.e* 
+*.o* 
+.ipynb_checkpoints/*
