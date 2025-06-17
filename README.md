@@ -111,7 +111,7 @@
     </pre>
 
 # p-DynSys_EncoderTransformerDecoder
-
+``` 
 Parametrised Uncertainty-Aware ROM for Dynamical Systems : https://arxiv.org/abs/2503.23236
 This repository implements a variational and parametrised equivalent of the DynSys_EncodeTransformerDecoder model. It is designed to handle parametrised and uncertainty-aware dynamic reduced-order models (ROMs) for dynamical systems, with a focus on unsteady flows. For a detailed theoretical background, please refer to the article:
 "Parametrised and Uncertainty-Aware Dynamic Reduced-Order Model – Application to Unsteady Flows."
@@ -153,3 +153,4 @@ Key Notes:
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
   -Ensure that the input data is properly formatted, with parameters correctly appended to the spatial vectors. Make sure that the data is normalised parameter wise to ensure equal importance is given by the model to each parameter set. 
   -For further details, refer to the associated article or reach out to the repository maintainers.
+``` 
