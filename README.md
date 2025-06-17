@@ -2,8 +2,7 @@
 
 (1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
 
-(2) - Run `cd p-DynSys_EncoderTransformerDecoder` to change the directory.
-
+(2) - `cd p-DynSys_EncoderTransformerDecoder`
 
 (3.0) - `python -m venv env`
 
@@ -11,13 +10,13 @@
 
 (3.1) - `env\Scripts\activate`       # Windows
 
-(3.2) - `pip install` -r requirements.txt
+(3.2) - `pip install -r requirements.txt`
 
 (4) - Download Data from [here](https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing), unzip in the root folder.
 
 (5) - Download Trained_Models from : [here](https://drive.google.com/file/d/17jrquMr-GZaQ3ohqxi2UOEweDfijiH7A/view?usp=sharing), unzip it in the root folder 
 
-(6) - You can run the Notebook in Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb
+(6) - You can run the Notebook in `Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb`
 
 <pre>
 Your folder structure should be : 
