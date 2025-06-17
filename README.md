@@ -34,7 +34,6 @@ Your folder structure should be :
 |
 +---Notebooks
 |   \---2DCyl
-|       |   eval-p-2DCyl.ipynb
 |       |   Hands_on_UP-d-ROM.ipynb
 |       |
 |       \---.ipynb_checkpoints
