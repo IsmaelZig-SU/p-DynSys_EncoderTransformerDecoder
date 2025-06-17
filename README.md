@@ -2,15 +2,16 @@
 
 (1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
 
-(2) - cd p-DynSys_EncoderTransformerDecoder
+(2) - Run `cd p-DynSys_EncoderTransformerDecoder` to change the directory.
 
-(3.0) - python -m venv env
 
-(3.1) - source env/bin/activate    # Linux/macOS
+(3.0) - `python -m venv env`
 
-(3.1) - env\Scripts\activate       # Windows
+(3.1) - `source env/bin/activate`    # Linux/macOS
 
-(3.2) - pip install -r requirements.txt
+(3.1) - `env\Scripts\activate`       # Windows
+
+(3.2) - `pip install` -r requirements.txt
 
 (4) - Download Data from [here](https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing), unzip in the root folder.
 
