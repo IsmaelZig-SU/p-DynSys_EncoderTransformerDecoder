@@ -18,9 +18,10 @@
 
 (6) - You can run the Notebook in `Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb`
 
-<pre>
-Your folder structure should be : 
 
+**Your folder structure should be** : 
+
+<pre>
 |   .gitignore
 |   main.py
 |   README.md
@@ -117,14 +118,14 @@ This repository implements a variational and parametrised equivalent of the DynS
 
 Expected Data Format
 The model expects input data with the following dimensions:
-[p, t, d + p.dim]
+`[p, t, d + p.dim]`
 
 Dimensions Explained:
-  -p: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
+  -`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
   
-  -t: Number of snapshots (time dimension).
+  -`t`: Number of snapshots (time dimension).
   
-  -d: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
+  -`d`: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
 
 Example: Navier-Stokes Emulator
 
@@ -134,15 +135,15 @@ Dataset Dimensions:
 The dataset should have the shape: [5, 1500, 10001].
 
 Explanation:
-p = 5: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
+`p = 5`: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
 
-t = 1500: Each configuration has 1500 snapshots in time.
+`t = 1500`: Each configuration has 1500 snapshots in time.
 
-d + p.dim = 10001:
+`d + p.dim = 10001`:
 
-d = 10000: The spatial dimension corresponds to the 100 × 100 grid (flattened to 10,000 points).
+`d = 10000`: The spatial dimension corresponds to the 100 × 100 grid (flattened to 10,000 points).
 
-p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points. You are free to stack more than 1 parameter (Geometry, Viscosity, Reynolds...)
+`p.dim = 1`: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points. You are free to stack more than 1 parameter (Geometry, Viscosity, Reynolds...)
 
 Parameter Stacking:
 The parameter value (e.g., Reynolds number) is stacked at the end of the spatial vector for each snapshot. This parameter value is unique for each of the 5 configurations.
