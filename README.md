@@ -151,6 +151,7 @@ The parameter value (e.g., Reynolds number) is stacked at the end of the spatial
 
 
 **Key Notes:**
+
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
   
   -Ensure that the input data is properly formatted, with parameters correctly appended to the spatial vectors. Make sure that the data is normalised parameter wise to ensure equal importance is given by the model to each parameter set. 
