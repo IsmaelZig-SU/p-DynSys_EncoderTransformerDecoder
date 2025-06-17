@@ -133,7 +133,6 @@ Consider a Navier-Stokes emulator for a flow domain defined on a 100 × 100 grid
 **Dataset Dimensions:**
 The dataset should have the shape: [5, 1500, 10001].
 
-Explanation:
 `p = 5`: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
 
 `t = 1500`: Each configuration has 1500 snapshots in time.
