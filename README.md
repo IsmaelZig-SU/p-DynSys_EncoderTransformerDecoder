@@ -122,7 +122,7 @@ The model expects input data with the following dimensions:
 
 **Dimensions Explained :**
 
-`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
+`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as `p.dim`.
   
 `t`: Number of snapshots (time dimension).
   
@@ -133,7 +133,8 @@ The model expects input data with the following dimensions:
 Consider a Navier-Stokes emulator for a flow domain defined on a 100 × 100 grid, with 1500 snapshots. The flow is simulated under 5 different configurations, where a single parameter (e.g., Reynolds number) is varied.
 
 **Dataset Dimensions:**
-The dataset should have the shape: [5, 1500, 10001].
+
+The dataset should have the shape: `[5, 1500, 10001]`.
 
 `p = 5`: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
 
@@ -151,6 +152,8 @@ The parameter value (e.g., Reynolds number) is stacked at the end of the spatial
 
 **Key Notes:**
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
+  
   -Ensure that the input data is properly formatted, with parameters correctly appended to the spatial vectors. Make sure that the data is normalised parameter wise to ensure equal importance is given by the model to each parameter set. 
+  
   -The provided model in Trained_models has been trained with the default args, it is parametrized by Reynolds number at `Re = 90, 120`. The data is standardised parameter-wise. The train data contains 2 parameter sets, 6550 spatial dimensions and 3033 snapshots `train : [2, 3033, 6551]` splitted in 1516 train snapshots and 1515 test snapshots. The test data contains 10 parameter sets ranging from `Re = 50` to  `Re = 140`, `test : [10, 3033, 6551]`. 
 
