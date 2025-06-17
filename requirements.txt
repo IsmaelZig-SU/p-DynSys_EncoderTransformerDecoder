@@ -1,4 +1,3 @@
-colorednoise==2.2.0
 h5py==3.10.0
 ipykernel 
 ipython
