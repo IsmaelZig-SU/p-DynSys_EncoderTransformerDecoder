@@ -116,15 +116,17 @@ This repository implements a variational and parametrised equivalent of the DynS
 "Parametrised and Uncertainty-Aware Dynamic Reduced-Order Model – Application to Unsteady Flows [here](https://arxiv.org/abs/2503.23236)."
 
 **Expected Data Format :**
+
 The model expects input data with the following dimensions:
 `[p, t, d + p.dim]`
 
 **Dimensions Explained :**
-  -`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
+
+`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
   
-  -`t`: Number of snapshots (time dimension).
+`t`: Number of snapshots (time dimension).
   
-  -`d`: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
+`d`: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
 
 **Example: Navier-Stokes Emulator**
 
