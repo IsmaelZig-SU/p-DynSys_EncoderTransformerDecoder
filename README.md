@@ -1,6 +1,6 @@
 # p-DynSys_EncoderTransformerDecoder
 
-(1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
+(1) - `git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git`
 
 (2) - `cd p-DynSys_EncoderTransformerDecoder`
 
