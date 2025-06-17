@@ -106,6 +106,8 @@ Your folder structure should be :
                     TransEvo.png
 
 
+    </pre>
+
 # p-DynSys_EncoderTransformerDecoder
 
 Parametrised Uncertainty-Aware ROM for Dynamical Systems : https://arxiv.org/abs/2503.23236
@@ -144,7 +146,6 @@ p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatia
 Parameter Stacking:
 The parameter value (e.g., Reynolds number) is stacked at the end of the spatial vector for each snapshot. This parameter value is unique for each of the 5 configurations.
 
-</pre>
 
 Key Notes:
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
