@@ -10,11 +10,11 @@
 
 (3.1) - `env\Scripts\activate`       # Windows
 
-(3.2) - `pip install -r requirements.txt`
+(3.2) - `pip install -r requirements.txt` _This can take up to 15 minutes_
 
-(4) - Download Data from [here](https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing), unzip in the root folder.
+(4) - Download Data from [here](https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing), unzip in the root folder. _~ 910 MB_
 
-(5) - Download Trained_Models from [here](https://drive.google.com/file/d/17jrquMr-GZaQ3ohqxi2UOEweDfijiH7A/view?usp=sharing), unzip it in the root folder 
+(5) - Download Trained_Models from [here](https://drive.google.com/file/d/17jrquMr-GZaQ3ohqxi2UOEweDfijiH7A/view?usp=sharing), unzip it in the root folder _~ 3.8 GB_
 
 (6) - You can run the Notebook `Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb`
 
