@@ -1,24 +1,29 @@
-<pre> ```
-(1) - git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git
+# p-DynSys_EncoderTransformerDecoder
 
-(2) - cd p-DynSys_EncoderTransformerDecoder
+(1) - `git clone https://github.com/IsmaelZig-SU/p-DynSys_EncoderTransformerDecoder.git`
 
-(3.0) - python -m venv env
+(2) - `cd p-DynSys_EncoderTransformerDecoder`
 
-(3.1) - source env/bin/activate    # Linux/macOS
+(3.0) - `python -m venv env`
 
-(3.1) - env\Scripts\activate       # Windows
+(3.1) - `source env/bin/activate`    # Linux/macOS
 
-(3.2) - pip install -r requirements.txt
+(3.1) - `env\Scripts\activate`       # Windows
 
-(4) - Download Data from : https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing, unzip in the root folder 
+(3.2) - `pip install -r requirements.txt`      (_This can take up to 15 minutes_)
 
-(5) - Download Trained_Models from : https://drive.google.com/file/d/17jrquMr-GZaQ3ohqxi2UOEweDfijiH7A/view?usp=sharing, unzip it in the root folder 
+(4) - Download Data from [here](https://drive.google.com/file/d/1iZpAsPFqziRx3hTSnsfMqt9czlftcq3i/view?usp=sharing), unzip in the root folder.    (~_910 MB_)
 
-(6) - You can run the Notebook in Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb
+(5) - Download Trained_Models from [here](https://drive.google.com/file/d/17jrquMr-GZaQ3ohqxi2UOEweDfijiH7A/view?usp=sharing), unzip it in the root folder.     (~_3.8 GB_)
 
-Your folder structure should be : 
+(6) - `jupyter notebook`
 
+(7) - You can run the Notebook `Notebooks/2DCyl/Hands_on_UP-d-ROM.ipynb`
+
+
+**Your folder structure should be** : 
+
+<pre>
 |   .gitignore
 |   main.py
 |   README.md
@@ -34,7 +39,6 @@ Your folder structure should be :
 |
 +---Notebooks
 |   \---2DCyl
-|       |   eval-p-2DCyl.ipynb
 |       |   Hands_on_UP-d-ROM.ipynb
 |       |
 |       \---.ipynb_checkpoints
@@ -110,44 +114,49 @@ Your folder structure should be :
 
 # p-DynSys_EncoderTransformerDecoder
 
-Parametrised Uncertainty-Aware ROM for Dynamical Systems : https://arxiv.org/abs/2503.23236
 This repository implements a variational and parametrised equivalent of the DynSys_EncodeTransformerDecoder model. It is designed to handle parametrised and uncertainty-aware dynamic reduced-order models (ROMs) for dynamical systems, with a focus on unsteady flows. For a detailed theoretical background, please refer to the article:
-"Parametrised and Uncertainty-Aware Dynamic Reduced-Order Model – Application to Unsteady Flows."
+"Parametrised and Uncertainty-Aware Dynamic Reduced-Order Model – Application to Unsteady Flows" [here](https://arxiv.org/abs/2503.23236)
 
-Expected Data Format
+**Expected Data Format :**
+
 The model expects input data with the following dimensions:
-[p, t, d + p.dim]
+`[p, t, d + p.dim]`
 
-Dimensions Explained:
-  -p: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as p.dim.
-  
-  -t: Number of snapshots (time dimension).
-  
-  -d: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
+**Dimensions Explained :**
 
-Example: Navier-Stokes Emulator
+`p`: Number of distinct parameter sets (parameter dimension). Parameters refer to external variables (e.g., Reynolds number) that can influence the system's response. The dimension of the parameter space is referred to as `p.dim`.
+  
+`t`: Number of snapshots (time dimension).
+  
+`d`: Spatial dimension (for 1D systems, this corresponds to the number of spatial points).
+
+**Example: Navier-Stokes Emulator**
 
 Consider a Navier-Stokes emulator for a flow domain defined on a 100 × 100 grid, with 1500 snapshots. The flow is simulated under 5 different configurations, where a single parameter (e.g., Reynolds number) is varied.
 
-Dataset Dimensions:
-The dataset should have the shape: [5, 1500, 10001].
+**Dataset Dimensions:**
 
-Explanation:
-p = 5: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
+The dataset should have the shape: `[5, 1500, 10001]`.
 
-t = 1500: Each configuration has 1500 snapshots in time.
+`p = 5`: There are 5 distinct parameter sets (e.g., 5 different Reynolds numbers).
 
-d + p.dim = 10001:
+`t = 1500`: Each configuration has 1500 snapshots in time.
 
-d = 10000: The spatial dimension corresponds to the 100 × 100 grid (flattened to 10,000 points).
+`d + p.dim = 10001`:
 
-p.dim = 1: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points. You are free to stack more than 1 parameter (Geometry, Viscosity, Reynolds...)
+`d = 10000`: The spatial dimension corresponds to the 100 × 100 grid (flattened to 10,000 points).
+
+`p.dim = 1`: The parameter value (e.g., Reynolds number) is appended to the spatial vector, resulting in a total of 10,001 points. You are free to stack more than 1 parameter (Geometry, Viscosity, Reynolds...)
 
 Parameter Stacking:
 The parameter value (e.g., Reynolds number) is stacked at the end of the spatial vector for each snapshot. This parameter value is unique for each of the 5 configurations.
 
 
-Key Notes:
+**Key Notes:**
+
   -The model is designed to handle parametrised dynamical systems and incorporates uncertainty quantification.
+  
   -Ensure that the input data is properly formatted, with parameters correctly appended to the spatial vectors. Make sure that the data is normalised parameter wise to ensure equal importance is given by the model to each parameter set. 
-  -For further details, refer to the associated article or reach out to the repository maintainers.
+  
+  -The provided model in Trained_models has been trained with the default args, it is parametrized by Reynolds number at `Re = 90, 120`. The data is standardised parameter-wise. The provided data comes from an Immersed Boundary Solver to solve the flow past an elliptical obstacle with an aspect ration (width/height) equal to 1.35. The training data contains 2 solutions for 2 Reynolds number : `Re = 90` and `Re = 120`, 6550 spatial dimensions and 3033 snapshots : `train : [2, 3033, 6551]` splitted in 1516 train snapshots and 1515 test snapshots. The validation data contains 10 parameter sets ranging from `Re = 50` to  `Re = 140`, `test : [10, 3033, 6551]`. 
+
