@@ -10,20 +10,42 @@ import statsmodels.api as sm
 from scipy.stats import gaussian_kde
 from src.Experiment import Experiment
 from torch.utils.data import DataLoader
+import io
 
 torch.manual_seed(99)
 
 class Eval_(Experiment):
 
     def __init__(self, exp_dir, exp_name):
+        # Robust device check that avoids any cuda access if unsupported
+        try:
+            if torch.cuda.is_available():
+                self.device = torch.device("cuda")
+            else:
+                self.device = torch.device("cpu")
+        except (AssertionError, RuntimeError):
+            self.device = torch.device("cpu")
 
-        args = pickle.load(open(exp_dir + "/" + exp_name + "/args","rb"))
-        #safety measure for new parameters added in model
-            
+        print(f"Eval running on device: {self.device}")
+
+        class CPU_Unpickler(pickle.Unpickler):
+            def find_class(self, module, name):
+                if module == 'torch.storage' and name == '_load_from_bytes':
+                    return lambda b: torch.load(io.BytesIO(b), map_location='cpu')
+                return super().find_class(module, name)
+
+        args_path = f"{exp_dir}/{exp_name}/args"
+        with open(args_path, 'rb') as f:
+            try:
+                args = pickle.load(f)
+            except:
+                f.seek(0)
+                args = CPU_Unpickler(f).load()
+
         super().__init__(args)
         self.exp_dir = exp_dir
         self.exp_name = exp_name
-            
+
 ##################################################################################################################
     def load_weights(self, epoch_num = 500, min_test_loss = False, min_train_loss = False):
 
@@ -36,8 +58,8 @@ class Eval_(Experiment):
         else:
             PATH = self.exp_dir+'/'+ self.exp_name+"/model_weights/atEpoch{epoch}".format(epoch=epoch_num)
         
-    
-        checkpoint = torch.load(PATH)
+        map_location = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        checkpoint = torch.load(PATH, map_location=map_location)
         self.model.load_state_dict(checkpoint['model_state_dict'])
 
 ##################################################################################################################
@@ -215,55 +237,62 @@ class Eval_(Experiment):
 ##################################################################################################################
     def predict_multistep(self, initial_conditions, timesteps, context):
 
-            '''
-            Input
-            -----
-            initial_conditions (torch tensor): [num_trajs, statedim]
-            timesteps (int): Number timesteps for prediction
+        '''
+        Input
+        -----
+        initial_conditions (torch tensor): [num_trajs, statedim]
+        timesteps (int): Number timesteps for prediction
 
-            Returns
-            x (torch tensor): [num_trajs timesteps obsdim] observable vetcor
-            Phi (torch tensor): [num_trajs timesteps statedim] state vector
-            '''
+        Returns
+        x (torch tensor): [num_trajs timesteps obsdim] observable vetcor
+        Phi (torch tensor): [num_trajs timesteps statedim] state vector
+        '''
 
-            self.model.eval()
+        self.model.eval()
 
-            Phi_n  = initial_conditions  
-            _, _, x_n, log_var = self.model.autoencoder(Phi_n, context)    #[num_trajs obsdim]
-            x   = x_n[None,...].to("cpu")                    #[timesteps num_trajs obsdim]
-            Phi = Phi_n[None, ...].to("cpu")                    #[timesteps num_trajs statedim]
-   
+        device = self.device
 
-            for n in range(timesteps):
+        try:
+            initial_conditions = initial_conditions.to(device)
+            context = context.to(device)
+        except (AssertionError, RuntimeError):
+            device = torch.device("cpu")
+            initial_conditions = initial_conditions.to(device)
+            context = context.to(device)
 
-                non_time_dims = (1,)*(x.ndim-1)   #dims apart from timestep in tuple form (1,1,...)
-                if n >= self.seq_len:
-                    i_start = n - self.seq_len + 1
-                    x_seq_n = x[i_start:(n+1), ...].to(self.device)
-                elif n==0:
-                    # padding = torch.zeros(x[0].repeat(self.seq_len - 1, *non_time_dims).shape).to(self.device)
-                    padding = x[0].repeat(self.seq_len - 1, *non_time_dims).to(self.device)
-                    x_seq_n = x[0:(n+1), ...].to(self.device)
-                    x_seq_n = torch.cat((padding, x_seq_n), 0)
-                else:
-                    # padding = torch.zeros(x[0].repeat(self.seq_len - n, *non_time_dims).shape).to(self.device)
-                    padding = x[0].repeat(self.seq_len - n, *non_time_dims).to(self.device)
-                    x_seq_n = x[1:(n+1), ...].to(self.device)
-                    x_seq_n = torch.cat((padding, x_seq_n), 0)
-                
-                x_seq_n = torch.movedim(x_seq_n, 1, 0) #[num_trajs seq_len obsdim]
-                x_seq_n = x_seq_n[:,:-1,:]
+        Phi_n  = initial_conditions
+        _, _, x_n, log_var = self.model.autoencoder(Phi_n, context)
+        x   = x_n[None, ...]                    #[timesteps num_trajs obsdim]
+        Phi = Phi_n[None, ...]                  #[timesteps num_trajs statedim]
 
-                x_nn     = self.model.transformer(x_seq_n, context.unsqueeze(1))
-                Phi_nn = self.model.autoencoder.recover(x_nn, context)
+        for n in range(timesteps):
 
-                x   = torch.cat((x,x_nn[None,...].detach().cpu()), 0)
-                Phi = torch.cat((Phi,Phi_nn[None,...].detach().cpu()), 0)
+            non_time_dims = (1,) * (x.ndim - 1)
+            if n >= self.seq_len:
+                i_start = n - self.seq_len + 1
+                x_seq_n = x[i_start:(n + 1), ...]
+            elif n == 0:
+                padding = x[0].repeat(self.seq_len - 1, *non_time_dims)
+                x_seq_n = x[0:(n + 1), ...]
+                x_seq_n = torch.cat((padding, x_seq_n), 0)
+            else:
+                padding = x[0].repeat(self.seq_len - n, *non_time_dims)
+                x_seq_n = x[1:(n + 1), ...]
+                x_seq_n = torch.cat((padding, x_seq_n), 0)
 
-            x      = torch.movedim(x, 1, 0)   #[num_trajs timesteps obsdim]
-            Phi    = torch.movedim(Phi, 1, 0) #[num_trajs timesteps statedim]
+            x_seq_n = torch.movedim(x_seq_n, 1, 0) #[num_trajs seq_len obsdim]
+            x_seq_n = x_seq_n[:, :-1, :]
 
-            return x, Phi
+            x_nn = self.model.transformer(x_seq_n, context.unsqueeze(1))
+            Phi_nn = self.model.autoencoder.recover(x_nn, context)
+
+            x = torch.cat((x, x_nn[None, ...].detach()), 0)
+            Phi = torch.cat((Phi, Phi_nn[None, ...].detach()), 0)
+
+        x = torch.movedim(x, 1, 0)   #[num_trajs timesteps obsdim]
+        Phi = torch.movedim(Phi, 1, 0) #[num_trajs timesteps statedim]
+
+        return x, Phi
 
     def get_latent_dynamics(self, phi_test, context) : 
 
