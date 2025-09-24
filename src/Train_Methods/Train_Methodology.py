@@ -6,7 +6,7 @@ from time import time
 
 class Train_Methodology():
 
-    def time_evolution(self, initial_x_n, initial_x_seq, initial_Phi_n, ph_size, context):
+     def time_evolution(self, initial_x_n, initial_x_seq, initial_Phi_n, ph_size):
 
         """
         Calculates multistep prediction from koopman and seqmodel while training
@@ -28,25 +28,31 @@ class Train_Methodology():
 
         trans_out_ph = x_n.clone()[:,None,...]   #[bs 1 obsdim]
         Phi_nn_hat_ph = initial_Phi_n.clone()[:,None,...] #[bs 1 statedim]
-
+        x_nn_hat_ph = x_n.clone()[:,None,...]
+        Phi_nn_hat_ph = initial_Phi_n.clone()[:,None,...] #[bs 1 statedim]
 
         #Evolving in Time
         for t in range(ph_size):
             
             #collecting transformer prediction
-            context_vae = context[:,-1, :]
-            context_transfo = context_vae.unsqueeze(1)
-            trans_out = self.model.transformer(x_seq, context_transfo)
+            trans_out = self.model.transformer(x_seq)
 
-            trans_out_ph = torch.cat((trans_out_ph, trans_out[:, None, ...]), 1)
-            Phi_nn_hat = self.model.autoencoder.recover(trans_out, context_vae)
-        
-            #concatenating prediction
+            if t==0 : 
+                trans_out_ph[:,0,...] = trans_out
+
+            else : 
+                trans_out_ph = torch.cat((trans_out_ph, trans_out[:, None, ...]), 1)
+
+            x_nn_hat = trans_out
+            Phi_nn_hat = self.model.autoencoder.recover(trans_out)
+
+            x_nn_hat_ph   = torch.cat((x_nn_hat_ph,x_nn_hat[:,None,...]), 1)
             Phi_nn_hat_ph = torch.cat((Phi_nn_hat_ph,Phi_nn_hat[:,None,...]), 1)
-            x_seq = torch.cat((x_seq[:,1:,...],x_n[:,None,...]), 1)
-            x_n = trans_out
 
-        return trans_out_ph[:,1:,...], Phi_nn_hat_ph[:,1:,...]
+            x_seq = torch.cat((x_seq[:,1:,...],x_n[:,None,...]), 1)
+            x_n = x_nn_hat
+
+        return x_nn_hat_ph[:,1:,...], Phi_nn_hat_ph[:,1:,...]
 
 ################################################################################################################################################
 
